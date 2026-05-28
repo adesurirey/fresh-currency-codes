@@ -1,0 +1,4 @@
+[install]
+# Pin to the public npm registry so the repo is hermetic against
+# any user-level `~/.npmrc` that targets a private registry.
+registry = "https://registry.npmjs.org/"

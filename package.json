@@ -1,0 +1,64 @@
+{
+  "name": "fresh-currency-codes",
+  "version": "0.1.0",
+  "description": "TypeScript ISO 4217 currency lookup, auto-refreshed weekly from the SIX-Group XML.",
+  "keywords": [
+    "iso4217",
+    "iso",
+    "4217",
+    "currency",
+    "currencies",
+    "code",
+    "codes",
+    "lookup",
+    "fresh"
+  ],
+  "homepage": "https://github.com/adesurirey/fresh-currency-codes#readme",
+  "bugs": {
+    "url": "https://github.com/adesurirey/fresh-currency-codes/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adesurirey/fresh-currency-codes.git"
+  },
+  "license": "MIT",
+  "author": "Arnaud de Surirey <adesurirey@gmail.com>",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "typecheck": "bunx tsc --noEmit",
+    "lint": "bunx biome check .",
+    "lint:fix": "bunx biome check . --write",
+    "test": "bun test --isolate",
+    "test:update": "bun test --isolate --update-snapshots",
+    "build": "bunx tsc -p tsconfig.build.json && cp src/data.json dist/data.json",
+    "prepublishOnly": "bun run build",
+    "iso:fetch-xml": "bun run scripts/fetch-iso-4217-xml.ts",
+    "iso:ingest-xml": "bun run scripts/ingest-iso-4217-xml.ts",
+    "iso": "bun run iso:fetch-xml && bun run iso:ingest-xml",
+    "sanity-check": "bun run scripts/sanity-check.ts"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.16",
+    "@types/bun": "^1.3.14",
+    "axios": "1.13.5",
+    "typescript": "^6.0.3",
+    "xml2js": "^0.6.2"
+  }
+}
