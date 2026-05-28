@@ -33,13 +33,26 @@ jobs:
       - name: Sanity-check the diff
         run: bun run sanity-check
 
+      - name: Detect data changes
+        id: data
+        run: |
+          if git diff --quiet HEAD -- src/data.json; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "ISO 4217 data is already in sync with main; nothing to do."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Update snapshots
+        if: steps.data.outputs.changed == 'true'
         run: bun run test:update
 
       - name: Bump patch version
+        if: steps.data.outputs.changed == 'true'
         run: npm version patch --no-git-tag-version
 
       - name: Compute diff summary
+        if: steps.data.outputs.changed == 'true'
         id: diff
         run: |
           set -euo pipefail
@@ -71,6 +84,7 @@ jobs:
           echo "deprecated=$DEPRECATED" >> "$GITHUB_OUTPUT"
 
       - name: Open refresh PR
+        if: steps.data.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v7
         with:
           branch: data-refresh/iso-${{ steps.diff.outputs.publishDate }}
