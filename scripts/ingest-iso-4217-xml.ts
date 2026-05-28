@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 import fs from 'node:fs';
 import xml2js from 'xml2js';
 
