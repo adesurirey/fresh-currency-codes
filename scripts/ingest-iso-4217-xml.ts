@@ -1,7 +1,6 @@
-/* eslint-disable no-console */
-
 import fs from 'node:fs';
 import xml2js from 'xml2js';
+import * as z from 'zod';
 
 import prevData from '../src/data.json';
 import type { CurrencyCodeRecord } from '../src/types';
@@ -10,20 +9,24 @@ import {
   ISO_4217_XML_FILE_PATH,
 } from './constants';
 
-type IsoDataXml = {
-  ISO_4217: {
-    CcyTbl: {
-      CcyNtry: {
-        Ccy?: { _: string };
-        CtryNm?: { _: string };
-        CcyNm: { _: string };
-        CcyNbr?: { _: string };
-        CcyMnrUnts?: { _: string };
-      }[];
-    };
-    Pblshd: string;
-  };
-};
+const isoDataXmlSchema = z.object({
+  ISO_4217: z.object({
+    CcyTbl: z.object({
+      CcyNtry: z.array(
+        z.object({
+          Ccy: z.object({ _: z.string() }).optional(),
+          CtryNm: z.object({ _: z.string() }).optional(),
+          CcyNm: z.object({ _: z.string() }),
+          CcyNbr: z.object({ _: z.string() }).optional(),
+          CcyMnrUnts: z.object({ _: z.string() }).optional(),
+        }),
+      ),
+    }),
+    Pblshd: z.string(),
+  }),
+});
+
+type IsoDataXml = z.infer<typeof isoDataXmlSchema>;
 
 const input = ISO_4217_XML_FILE_PATH;
 const output = 'src/data.json';
@@ -116,11 +119,17 @@ fs.readFile(input, (readFileError, data) => {
       explicitCharkey: true, // put all content under a key so its easier to parse when there are attributes
       mergeAttrs: true, // lift attributes up so they're easier to parse
     },
-    (parseError, result: IsoDataXml) => {
+    (parseError, result) => {
       failOnError(parseError);
 
-      const publishDate = ingestPublishDate(result);
-      const nextCurrencies = ingestEntries(result);
+      const parseResult = isoDataXmlSchema.safeParse(result);
+      if (!parseResult.success) {
+        console.error('Failed to parse ISO 4217 XML data:', parseResult.error);
+        process.exit(1);
+      }
+
+      const publishDate = ingestPublishDate(parseResult.data);
+      const nextCurrencies = ingestEntries(parseResult.data);
       const inactiveCurrencies = prevData.currencies.filter(
         (prevCurrency) =>
           !nextCurrencies.some(
