@@ -232,6 +232,16 @@ The point of this fork is that the dataset stays current without anyone remember
 
 The `publishDate` export is the canonical freshness signal — it mirrors the `Pblshd` field of the SIX-Group XML, not the npm publish date.
 
+### Stability contract
+
+From `1.0.0`, this package follows semver — but for a deliberately *living* dataset. The 1.x guarantee covers the **public API** and the **data shape** (the `CurrencyCodeRecord` structure, function signatures, and `digits: null` semantics), **not the data values**. Currency additions and deprecations are expected weekly churn shipped as `patch` releases; they are not breaking changes. A `2.0.0` is reserved for human-gated changes to the API or data shape. See [ADR-0010](./docs/adr/0010-v1-stability-contract-covers-api-and-shape-not-data.md).
+
+If you need a **frozen snapshot** of the data — e.g. for reproducible builds or to insulate against a currency being deprecated upstream — pin an exact version (`fresh-currency-codes: "1.2.3"`) rather than a range (`^1.0.0`).
+
+## Changelog
+
+Release notes for every version live on the [GitHub Releases page](https://github.com/adesurirey/fresh-currency-codes/releases). Automated data refreshes carry their added/deprecated counts; manual API changes carry hand-written notes.
+
 ## Divergences from `currency-codes`
 
 | Behaviour | `freeall/currency-codes` | `fresh-currency-codes` |
@@ -257,7 +267,7 @@ This fetches the latest `list-one.xml` from SIX-Group and rewrites `src/data.jso
 ## Project structure
 
 - [`CONTEXT.md`](./CONTEXT.md) — domain glossary (Currency, Code, Number, Country, Digits, Publish date, Active, Deprecated, SIX-Group list).
-- [`docs/adr/`](./docs/adr/) — architectural decision records (ADRs 0001–0009).
+- [`docs/adr/`](./docs/adr/) — architectural decision records (ADRs 0001–0010).
 
 ## License
 
