@@ -87,6 +87,7 @@ jobs:
         if: steps.data.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v7
         with:
+          token: ${{ secrets.CI_PAT }}
           branch: data-refresh/iso-${{ steps.diff.outputs.publishDate }}
           base: main
           title: "chore: refresh ISO 4217 data (${{ steps.diff.outputs.publishDate }}) — +${{ steps.diff.outputs.added }} added, +${{ steps.diff.outputs.deprecated }} deprecated"
