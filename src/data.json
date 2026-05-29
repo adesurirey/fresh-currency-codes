@@ -230,6 +230,16 @@
     },
     {
       "active": true,
+      "code": "BTN",
+      "countries": [
+        "bhutan"
+      ],
+      "currency": "Ngultrum",
+      "digits": 2,
+      "number": "064"
+    },
+    {
+      "active": true,
       "code": "BWP",
       "countries": [
         "botswana"
@@ -2001,6 +2011,6 @@
       "number": "932"
     }
   ],
-  "publishDate": "2025-12-31",
+  "publishDate": "2026-01-01",
   "source": "https://www.six-group.com/dam/download/financial-information/data-center/iso-currrency/lists/list-one.xml"
 }
