@@ -11,7 +11,7 @@ describe('Currency Codes - data', () => {
   it('should return the publish date', () => {
     const result = cc.publishDate;
 
-    expect(result).toMatchInlineSnapshot(`"2026-01-01"`);
+    expect(result).toMatchInlineSnapshot(`"2025-12-31"`);
   });
 
   it('count all currencies', () => {
