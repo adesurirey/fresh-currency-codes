@@ -17,37 +17,37 @@ describe('Currency Codes - data', () => {
   it('count all currencies', () => {
     const result = cc.currencies();
 
-    expect(result.length).toMatchInlineSnapshot(`178`);
+    expect(result.length).toMatchInlineSnapshot(`177`);
   });
 
   it('count all currencies including deprecated ones', () => {
     const result = cc.currencies({ includeDeprecated: true });
 
-    expect(result.length).toMatchInlineSnapshot(`191`);
+    expect(result.length).toMatchInlineSnapshot(`190`);
   });
 
   it('count all currency codes', () => {
     const result = cc.codes();
 
-    expect(result.length).toMatchInlineSnapshot(`178`);
+    expect(result.length).toMatchInlineSnapshot(`177`);
   });
 
   it('count all currency codes including deprecated ones', () => {
     const result = cc.codes({ includeDeprecated: true });
 
-    expect(result.length).toMatchInlineSnapshot(`191`);
+    expect(result.length).toMatchInlineSnapshot(`190`);
   });
 
   it('count all currency numbers', () => {
     const result = cc.numbers();
 
-    expect(result.length).toMatchInlineSnapshot(`178`);
+    expect(result.length).toMatchInlineSnapshot(`177`);
   });
 
   it('count all currency numbers including deprecated ones', () => {
     const result = cc.numbers({ includeDeprecated: true });
 
-    expect(result.length).toMatchInlineSnapshot(`191`);
+    expect(result.length).toMatchInlineSnapshot(`190`);
   });
 
   it('count all unique countries', () => {

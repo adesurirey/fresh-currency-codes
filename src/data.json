@@ -230,16 +230,6 @@
     },
     {
       "active": true,
-      "code": "BTN",
-      "countries": [
-        "bhutan"
-      ],
-      "currency": "Ngultrum",
-      "digits": 2,
-      "number": "064"
-    },
-    {
-      "active": true,
       "code": "BWP",
       "countries": [
         "botswana"
