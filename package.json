@@ -1,6 +1,6 @@
 {
   "name": "fresh-currency-codes",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "TypeScript ISO 4217 currency lookup, auto-refreshed weekly from the SIX-Group XML.",
   "keywords": [
     "iso4217",

@@ -11,43 +11,43 @@ describe('Currency Codes - data', () => {
   it('should return the publish date', () => {
     const result = cc.publishDate;
 
-    expect(result).toMatchInlineSnapshot(`"2025-12-31"`);
+    expect(result).toMatchInlineSnapshot(`"2026-01-01"`);
   });
 
   it('count all currencies', () => {
     const result = cc.currencies();
 
-    expect(result.length).toMatchInlineSnapshot(`177`);
+    expect(result.length).toMatchInlineSnapshot(`178`);
   });
 
   it('count all currencies including deprecated ones', () => {
     const result = cc.currencies({ includeDeprecated: true });
 
-    expect(result.length).toMatchInlineSnapshot(`190`);
+    expect(result.length).toMatchInlineSnapshot(`191`);
   });
 
   it('count all currency codes', () => {
     const result = cc.codes();
 
-    expect(result.length).toMatchInlineSnapshot(`177`);
+    expect(result.length).toMatchInlineSnapshot(`178`);
   });
 
   it('count all currency codes including deprecated ones', () => {
     const result = cc.codes({ includeDeprecated: true });
 
-    expect(result.length).toMatchInlineSnapshot(`190`);
+    expect(result.length).toMatchInlineSnapshot(`191`);
   });
 
   it('count all currency numbers', () => {
     const result = cc.numbers();
 
-    expect(result.length).toMatchInlineSnapshot(`177`);
+    expect(result.length).toMatchInlineSnapshot(`178`);
   });
 
   it('count all currency numbers including deprecated ones', () => {
     const result = cc.numbers({ includeDeprecated: true });
 
-    expect(result.length).toMatchInlineSnapshot(`190`);
+    expect(result.length).toMatchInlineSnapshot(`191`);
   });
 
   it('count all unique countries', () => {
