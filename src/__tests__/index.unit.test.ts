@@ -272,4 +272,46 @@ describe('Currency Codes - API', () => {
       ]);
     });
   });
+
+  describe('array return safety', () => {
+    it('codes() should return a fresh array on each call', () => {
+      const first = cc.codes();
+      first.sort();
+      first.push('ZZZ');
+
+      const second = cc.codes();
+      expect(second).toEqual(['USD', 'USN']);
+    });
+
+    it('numbers() should return a fresh array on each call', () => {
+      const first = cc.numbers();
+      first.pop();
+
+      const second = cc.numbers();
+      expect(second).toEqual(['840', '997']);
+    });
+
+    it('countries() should return a fresh array on each call', () => {
+      const first = cc.countries({ includeDeprecated: true });
+      first.push('made-up-country');
+
+      const second = cc.countries({ includeDeprecated: true });
+      expect(second).toEqual([
+        'croatia',
+        'american samoa',
+        'united states of america (the)',
+      ]);
+    });
+
+    it('country() should return a fresh array and not mutate internal buckets', () => {
+      const first = cc.country('united states of america (the)');
+      first.pop();
+
+      const second = cc.country('united states of america (the)');
+      expect(second).toEqual([
+        expect.objectContaining({ code: 'USD' }),
+        expect.objectContaining({ code: 'USN' }),
+      ]);
+    });
+  });
 });
